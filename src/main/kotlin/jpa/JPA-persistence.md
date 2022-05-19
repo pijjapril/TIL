@@ -48,3 +48,10 @@ EntityManager에 의해서 관리되는 상태 -> 영속성 상태
    + 2차 캐시는 애플리케이션 전체에서 공유하는 캐시(추후 학습 예정)
 <br><br>
 2. 영속 엔티티의 동일성 보장 -> 1차 캐시
+   ![](/img/jpa_persistence_2.png)
+```java
+Member a = em.find(Member.class, "member1");
+Member b = em.find(Member.class, "member1");
+
+System.out.println(a==b)    // 동일성 보장
+```
