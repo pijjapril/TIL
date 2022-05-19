@@ -1,0 +1,14 @@
+# Project exclude paths
+/.gradle/
+gradle.properties
+gradlew.bat
+gradlew
+settings.gradle
+compiler.xml
+gradle.xml
+gradle-wrapper.*
+jarRepositories.xml
+misc.xml
+vcs.xml
+.gitignore
+
