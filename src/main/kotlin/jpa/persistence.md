@@ -28,7 +28,8 @@ EntityManager에 의해서 관리되는 상태 -> 영속성 상태
 + Status Change
 1. 비영속 -> 영속 -> 삭제
 2. 영속 -> 준영속
-![](/img/jpa_persistence_1.png)
+<br><br>
+<img src="/Users/camel/IdeaProjects/TIL/src/main/resources/img/jpa_persistence_1.png">
 ---
 ###Schema
 - 1차 캐시
@@ -48,10 +49,44 @@ EntityManager에 의해서 관리되는 상태 -> 영속성 상태
    + 2차 캐시는 애플리케이션 전체에서 공유하는 캐시(추후 학습 예정)
 <br><br>
 2. 영속 엔티티의 동일성 보장 -> 1차 캐시
-   ![](/img/jpa_persistence_2.png)
+<br><br>
+<img src="/Users/camel/IdeaProjects/TIL/src/main/resources/img/jpa_persistence_2.png">
 ```java
 Member a = em.find(Member.class, "member1");
 Member b = em.find(Member.class, "member1");
 
 System.out.println(a==b)    // 동일성 보장
 ```
+- 같은 호출을 반복해도 1차 캐시에 있는 같은 엔티티를 반환하여 동일성 보장
+- 동일성 보장의 문제점 -> 
+3. 엔티티 등록 시 쓰기 지연
+- 트랜잭션을 커밋하는 순간 -> 한 번에 DB에 SQL을 보냄
+- 그 전까지는 쓰기 지연 SQL 저장소에 모았다가 한 번에 보냄
+```java
+EntityManager em = emf.createEntityManager();
+EntityTransaction transaction = em.getTransaction();
+//엔티티 매니저는 데이터 변경시 트랜잭션을 시작해야 한다.
+transaction.begin();
+em.persist(memberA);
+em.persist(memberB);
+
+//여기까지 INSERT SQL을 데이터베이스에 보내지 않는다.
+//커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
+transaction.commit();
+```
+4. 엔티티 수정할 때 : 변경 감지(더티 체킹)
+```java
+EntityManager em = emf.createEntityManager();
+EntityTransaction transaction = em.getTransaction();
+transaction.begin();
+// 영속 엔티티 조회
+Member memberA = em.find(Member.class, "memberA");
+// 영속 엔티티 데이터 수정
+memberA.setUsername("hi");
+memberA.setAge(10);
+
+//em.update(member)
+transaction.commit();
+```
+<br><br>
+<img src="/Users/camel/IdeaProjects/TIL/src/main/resources/img/jpa_persistence_3.png">
