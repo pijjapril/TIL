@@ -90,3 +90,5 @@ transaction.commit();
 ```
 <br><br>
 <img src="/Users/camel/IdeaProjects/TIL/src/main/resources/img/jpa_persistence_3.png">
+
+참고 : 김영한의 JPA 강의를 포스팅한 https://velog.io/@sooyoungh/
