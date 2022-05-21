@@ -52,3 +52,6 @@ List<Member> members = query.getResultList();
 memberA, B, C를 영속성 컨텍스트에 저장한 상태에서 조회해도 조회가 되지 않는다.
 <br>
 DB에 INSERT Query가 아직 날라가지 않은 상태
+
+
+참고 : https://gmlwjd9405.github.io/2019/08/07/what-is-flush.html

@@ -21,3 +21,5 @@
 - 영속성 컨텍스트가 다르면 객체 동일성을 보장하지 않는다.
 <br><br>
 <img src="/Users/camel/IdeaProjects/TIL/src/main/resources/img/cache_1.png">
+
+참고 : https://willseungh0.tistory.com/77
