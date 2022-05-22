@@ -36,6 +36,7 @@
 
     5. findById()를 통해 해당 엔티티를 조회
 
+### 예제 1)
 ```kotlin
 @Entity
 class Article {
@@ -85,10 +86,36 @@ class Test {
 4. 벌크 연산 쿼리 메서드를 통해 title 값 UPDATE
 5. findById()를 통해 기존의 Id값으로 엔티티 조회
 <img src="/Users/camel/IdeaProjects/TIL/src/main/resources/img/bulkOperation_1.png">
-- 결론
+- 정리
   - 결과는 변경된 값, "after"가 아닌 변경 전의 값 "before"
   - 실제 DB에서는 벌크 연산의 실행 결과로 title이 "after"로 변경
+---
+### 예제 2)
+```kotlin
+interface ArticleRepository : JpaRepository<Article, Long> {
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Article a SET a.title = ?2 WHERE id = ?1")
+    fun updateTitle(id: Long, title: String) : Int
+}
 
+```
+<img src="/Users/camel/IdeaProjects/TIL/src/main/resources/img/clearAutomaticallyTrue.png"></img>
+
+- 정리
+  - title은 벌크 연산에서 실행했듯이 "after"로 변경 
+  - 예제 1과 예제2 모두 테스트 코드(findById)는 동일
+  - 예제1 에서는 SELECT Query가 실행되지 않음
+  - 예제2 에서는 SELECT Query가 실행
+  - 실제 DB에는 변경된 after 값
+---
+### 결론
+- JPA 에서 조회를 실행할 시에 1차 캐시를 확인해서 해당 엔티티가 1차 캐시에 존재한다면 DB에 접근하지 않고, 
+1차 캐시에 있는 엔티티를 반환
+- 벌크 연산은 1차 캐시를 포함한 영속성 컨텍스트를 무시하고 바로 Query를 실행하기 때문에 영속성 컨텍스트는 데이터 변경을 알 수 없음
+- 벌크 연산 실행 시, 1차 캐시(영속성 컨텍스트)와 DB의 데이터 싱크가 맞지 않게 됨
+- Spring Data JPA는 @Modifying의 clearAutomatically = true일 때 벌크 연산 직후 자동으로 영속성 컨텍스트를 clear 해줌
+- 조회를 실행하면 1차 캐시에 해당 엔티티가 존재하지 않기 때문에 DB 조회 쿼리를 실행
+  <br><br>
 참고 : https://devhyogeon.tistory.com/4
 
 
