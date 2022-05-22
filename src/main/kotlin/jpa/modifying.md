@@ -65,7 +65,7 @@ class Test {
     
     @Rollback(false)
     fun update() {
-      val article : Article
+      val article = Article()
       article.title = "before"
       articleRepository.save(
           article.title
@@ -99,7 +99,7 @@ interface ArticleRepository : JpaRepository<Article, Long> {
 }
 
 ```
-<img src="/Users/camel/IdeaProjects/TIL/src/main/resources/img/clearAutomaticallyTrue.png"></img>
+<img src="/Users/camel/IdeaProjects/TIL/src/main/resources/img/clearAutomaticallyTrue.png">
 
 - 정리
   - title은 벌크 연산에서 실행했듯이 "after"로 변경 
