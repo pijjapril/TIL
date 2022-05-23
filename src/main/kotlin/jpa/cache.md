@@ -11,7 +11,7 @@
 - 영속성 컨텍스트 내부에 엔티티를 보관하는 저장소
 - 같은 엔티티가 있으면 객체 동일성을 보장
 <br><br>
-<img src="/Users/camel/IdeaProjects/TIL/src/main/resources/img/jpa_persistence_1.png">
+![jpa_persistence_1](src/main/resources/img/jpa_persistence_1.png)
 
 
 ### 2차 캐시
