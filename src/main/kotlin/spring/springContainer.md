@@ -80,5 +80,13 @@
 
 - Bean 설정 방법
   - XML Configuration
+    - Class 파일과 설정 분리 가능 -> 관심사의 분리 관점(Separation of concerns)
+    - XML 값은 모두 String -> non-type-safe
+
   - Annotation Configuration
+    - @Component, @Service
+    - Java 코드로 설정 -> type-safe
+
   - Java Configuration
+    - @Configuration, @Bean
+    - Class 파일과 설정 분리 가능 -> 관심사의 분리 관점(Separation of concerns)
