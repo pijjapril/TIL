@@ -86,3 +86,9 @@ Thread t2 = new Thread(r);              // 생성자 Thread(Runnable target)
 Thread t2 = new Thread(new ThreadEx1_2());      // 위 두 줄을 한 줄로 간단히
 ```
 
+
+
+
+---
+
+참고 : 도서<자바의 정석>
