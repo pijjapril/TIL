@@ -1,0 +1,5 @@
+include 'Spring'
+include 'JPA'
+include 'java'
+findProject(':Spring')?.name = 'spring'
+
