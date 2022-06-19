@@ -87,7 +87,34 @@ Thread t2 = new Thread(new ThreadEx1_2());      // 위 두 줄을 한 줄로 간
 ```
 
 
+---
 
+### Runnable 인터페이스를 구현한 경우
+- 구현한 클래스의 인스턴스를 생성 
+- 인스턴스를 Thread 클래스의 생성자의 매개변수로 제공해야 함
+
+
+```java
+public class Thread {
+    private Runnable r;     // Runnable을 구현한 클래스의 인스턴스를 참조하기 위한 변수
+    
+    public Thread(Runnable r) {
+        this.r = r;
+    }
+    
+    public void run() {
+        if(r != null) {
+            r.run();        // Runnable 인터페이스를 구현한 인스턴스의 run()을 호출
+        }
+    }
+}
+```
+
+
+### Thread 클래스를 상속 받은 경우
+- 자손 클래스에서 조상인 Thread 클래스의 메소드 직접 호출 가능
+- Runnable을 구현하면 Thread 클래스의 static method인 currentThread()를 호출
+- 스레드에 대한 참조를 얻어와야만 호출 가능
 
 ---
 
